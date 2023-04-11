@@ -61,29 +61,33 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-weight: 300;
+    margin-right: 10px;
 }
 
 .column-two {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 10px;
 }
 
 .column-three {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 10px;
 }
 
 .column-four {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-right: 10px;
 }
 
 .column-five {
     display: flex;
     flex-direction: column;
     align-items: center;
+   
 }
