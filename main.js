@@ -8,6 +8,7 @@ var button = document.querySelector(".new-palette-btn");
 
 //event listener
 button.addEventListener("click", displayPalette)
+window.addEventListener("load", displayPalette)
 
 //FUNCTIONS
 function getRandomIndex(array) {
