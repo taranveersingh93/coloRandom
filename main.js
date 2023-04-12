@@ -5,10 +5,15 @@ var currentPalette = {};
 var boxes = document.querySelectorAll(".common");
 var domHexCodes = document.querySelectorAll(".hexcode");
 var button = document.querySelector(".new-palette-btn");
+var paletteSection = document.querySelector(".color-boxes");
+
 
 //event listener
 button.addEventListener("click", displayPalette)
 window.addEventListener("load", displayPalette)
+paletteSection.addEventListener("click", function(event) {
+  toggleIcon(event)
+})
 
 //FUNCTIONS
 function getRandomIndex(array) {
@@ -56,3 +61,23 @@ function displayPalette() {
   reassignCurrentPalette();
   renderPalette();
 }
+
+function toggleIcon(event) {
+  if (event.target.classList.contains("lock-icon") && event.target.src.includes("assets/unlocked.png")) {
+        event.target.src = "assets/locked.png"
+  } else if (event.target.classList.contains("lock-icon") && event.target.src.includes("assets/locked.png")) {
+        event.target.src = "assets/unlocked.png"
+  } 
+} 
+  
+function showDomElement(element) {
+  element.classList.remove("hidden");
+}
+
+function hideDomElement(element) {
+  element.classList.add("hidden");
+}
+
+
+
+
