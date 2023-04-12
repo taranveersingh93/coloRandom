@@ -1,7 +1,10 @@
 //VARIABLES
 var hexData = 'ABCDEF0123456789';
 hexData = hexData.split('');
-var currentPalette = {};
+var currentPalette = {
+  colorArray: [],
+  id: Date.now()
+};
 var boxes = document.querySelectorAll(".common");
 var domHexCodes = document.querySelectorAll(".hexcode");
 var button = document.querySelector(".new-palette-btn");
@@ -10,10 +13,12 @@ var paletteSection = document.querySelector(".color-boxes");
 
 //event listener
 button.addEventListener("click", displayPalette)
-window.addEventListener("load", displayPalette)
+window.addEventListener("load", displayFirstPalette)
 paletteSection.addEventListener("click", function(event) {
+  changeIsLocked(event);
   toggleIcon(event)
 })
+
 
 //FUNCTIONS
 function getRandomIndex(array) {
@@ -36,11 +41,7 @@ function createColor() {
   return color;
 }
 
-function reassignBoxColors() {
-  for (var i = 0; i < 5; i++) {
-   currentPalette.colorArray.push(createColor())
-  }
-}
+
 
 function reassignCurrentPalette() {
   currentPalette = {
@@ -48,6 +49,20 @@ function reassignCurrentPalette() {
     id: Date.now()
   }
   reassignBoxColors();
+}
+
+function loadBoxColors() {
+  for (var i = 0; i < 5; i++) {
+    currentPalette.colorArray.push(createColor());
+  }
+}
+
+function reassignBoxColors() {
+  for (var i = 0; i < 5; i++) {
+    if (!currentPalette.colorArray[i].isLocked) {
+      currentPalette.colorArray[i] = createColor();
+    }
+  }
 }
 
 function renderPalette() {
@@ -58,17 +73,35 @@ function renderPalette() {
 }
 
 function displayPalette() {
-  reassignCurrentPalette();
+  reassignBoxColors();
+  renderPalette();
+}
+
+function displayFirstPalette() {
+  loadBoxColors();
   renderPalette();
 }
 
 function toggleIcon(event) {
-  if (event.target.classList.contains("lock-icon") && event.target.src.includes("assets/unlocked.png")) {
-        event.target.src = "assets/locked.png"
-  } else if (event.target.classList.contains("lock-icon") && event.target.src.includes("assets/locked.png")) {
-        event.target.src = "assets/unlocked.png"
+  var targetID = parseInt(event.target.closest(".column").id);
+
+  if (event.target.classList.contains("lock-icon") && currentPalette.colorArray[targetID].isLocked) {
+      event.target.src = "assets/locked.png"
+      //console.log(currentPalette.colorArray[targetID].isLocked)
+  } else if (event.target.classList.contains("lock-icon") && !currentPalette.colorArray[targetID].isLocked) {
+      event.target.src = "assets/unlocked.png"
+      //console.log(currentPalette.colorArray[targetID].isLocked)
   } 
 } 
+
+function changeIsLocked(event) {
+  
+  if(event.target.classList.contains("lock-icon")) {
+    var targetID = parseInt(event.target.closest(".column").id);
+    currentPalette.colorArray[targetID].isLocked = !currentPalette.colorArray[targetID].isLocked;
+  }
+  
+}
   
 function showDomElement(element) {
   element.classList.remove("hidden");
