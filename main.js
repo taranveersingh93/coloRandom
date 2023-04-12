@@ -12,8 +12,10 @@ var paletteSection = document.querySelector(".color-boxes");
 button.addEventListener("click", displayPalette)
 window.addEventListener("load", displayPalette)
 paletteSection.addEventListener("click", function(event) {
+  changeIsLocked(event);
   toggleIcon(event)
 })
+
 
 //FUNCTIONS
 function getRandomIndex(array) {
@@ -63,12 +65,23 @@ function displayPalette() {
 }
 
 function toggleIcon(event) {
-  if (event.target.classList.contains("lock-icon") && event.target.src.includes("assets/unlocked.png")) {
-        event.target.src = "assets/locked.png"
-  } else if (event.target.classList.contains("lock-icon") && event.target.src.includes("assets/locked.png")) {
-        event.target.src = "assets/unlocked.png"
+  var targetID = parseInt(event.target.closest(".column").id);
+
+  if (event.target.classList.contains("lock-icon") && currentPalette.colorArray[targetID].isLocked) {
+      event.target.src = "assets/locked.png"
+      console.log(currentPalette.colorArray[targetID].isLocked)
+  } else if (event.target.classList.contains("lock-icon") && !currentPalette.colorArray[targetID].isLocked) {
+      event.target.src = "assets/unlocked.png"
+      console.log(currentPalette.colorArray[targetID].isLocked)
   } 
 } 
+
+function changeIsLocked(event) {
+  if(event.target.classList.contains("lock-icon")) {
+    var targetID = parseInt(event.target.closest(".column").id);
+    currentPalette.colorArray[targetID].isLocked = !currentPalette.colorArray[targetID].isLocked;
+  }
+}
   
 function showDomElement(element) {
   element.classList.remove("hidden");
