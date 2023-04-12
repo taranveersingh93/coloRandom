@@ -5,6 +5,10 @@
 body {
     background: #E7F1F1;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 h1 {
@@ -16,25 +20,14 @@ h1 {
 
 .color-boxes {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    width: 80%;
 }
 
 .color-name {
     display: flex;
     justify-content: center;
     font-size: medium;
-}
-
-.common {
-    width: 100px;
-    height: 100px;
-    border: 3px solid black;
-}
-
-.box {
-    display: flex;
-    width: 41%;
-    justify-content: space-evenly;
 }
 
 .box-one {
@@ -57,37 +50,32 @@ h1 {
     background-color: #A4C4CA;
 }
 
-.column-one {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 10px;
+.common {
+    width: 100px;
+    height: 100px;
+    border: 3px solid black;
 }
 
-.column-two {
+.box {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 10px;
+    width: 41%;
+    justify-content: space-evenly;
 }
 
-.column-three {
+
+.column {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 10px;
 }
 
-.column-four {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 10px;
-}
-
-.column-five {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   
+.new-palette-btn {
+    width: 200px;
+    height: 35px;
+    margin-top: 40px;
+    background-color: black;
+    color: white;
+    border-bottom-left-radius: 40px;
+    border-top-right-radius: 40px;
+    font-size: 17px;
 }
