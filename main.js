@@ -2,13 +2,12 @@
 var hexData = 'ABCDEF0123456789';
 hexData = hexData.split('');
 var currentPalette = {};
-// var box1 = document.querySelector('.box-one');
-// var box2 = document.querySelector('.box-two');
-// var box3 = document.querySelector('.box-three');
-// var box4 = document.querySelector('.box-four');
-// var box5 = document.querySelector('box-five');
-var boxes = document.querySelectorAll(".common")
+var boxes = document.querySelectorAll(".common");
+var domHexCodes = document.querySelectorAll(".hexcode");
+var button = document.querySelector(".new-palette-btn");
 
+//event listener
+button.addEventListener("click", displayPalette)
 
 //FUNCTIONS
 function getRandomIndex(array) {
@@ -33,21 +32,23 @@ function createColor() {
 
 function reassignBoxColors() {
   for (var i = 0; i < 5; i++) {
-   currentPalette.push(createColor())
+   currentPalette.colorArray.push(createColor())
   }
 }
 
 function reassignCurrentPalette() {
   currentPalette = {
-    colorArray: reassignBoxColors(),
+    colorArray: [],
     id: Date.now()
   }
+  reassignBoxColors();
 }
 
 function renderPalette() {
-  for (var i = 0; i < currentPalette.length; i++) {
-  boxes[i].style.backgroundColor = currentPalette[i].hexcode;
-  }
+  for (var i = 0; i < boxes.length; i++) {
+    boxes[i].style.backgroundColor = currentPalette.colorArray[i].hexcode;
+    domHexCodes[i].innerText = currentPalette.colorArray[i].hexcode;
+ }
 }
 
 function displayPalette() {
