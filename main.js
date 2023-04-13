@@ -2,21 +2,19 @@
 var hexData = 'ABCDEF0123456789';
 hexData = hexData.split('');
 var currentPalette = [];
-var boxes = document.querySelectorAll(".common");
+var domColorBoxes = document.querySelectorAll(".common");
 var domHexCodes = document.querySelectorAll(".hexcode");
-var button = document.querySelector(".new-palette-btn");
-var paletteSection = document.querySelector(".color-boxes");
-var current = document.querySelector('.current-palette-section')
+var domNewPaletteButton = document.querySelector(".new-palette-btn");
+var domPaletteSection = document.querySelector(".color-boxes");
 
-console.log(current)
+
 //event listener
-button.addEventListener("click", displayPalette)
+domNewPaletteButton.addEventListener("click", displayPalette)
 window.addEventListener("load", displayFirstPalette)
-paletteSection.addEventListener("click", function(event) {
+domPaletteSection.addEventListener("click", function(event) {
   changeIsLocked(event);
   toggleIcon(event)
 })
-
 
 //FUNCTIONS
 function getRandomIndex(array) {
@@ -54,8 +52,8 @@ function reassignBoxColors() {
 }
 
 function renderPalette() {
-  for (var i = 0; i < boxes.length; i++) {
-    boxes[i].style.backgroundColor = currentPalette[i].hexcode;
+  for (var i = 0; i < domColorBoxes.length; i++) {
+    domColorBoxes[i].style.backgroundColor = currentPalette[i].hexcode;
     domHexCodes[i].innerText = currentPalette[i].hexcode;
  }
 }
