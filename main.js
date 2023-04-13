@@ -1,10 +1,7 @@
 //VARIABLES
 var hexData = 'ABCDEF0123456789';
 hexData = hexData.split('');
-var currentPalette = {
-  colorArray: [],
-  id: Date.now()
-};
+var currentPalette = [];
 var boxes = document.querySelectorAll(".common");
 var domHexCodes = document.querySelectorAll(".hexcode");
 var button = document.querySelector(".new-palette-btn");
@@ -41,40 +38,25 @@ function createColor() {
   return color;
 }
 
-
-
-function reassignCurrentPalette() {
-  currentPalette = {
-    colorArray: [],
-    id: Date.now()
-  }
-  reassignBoxColors();
-}
-
 function loadBoxColors() {
   for (var i = 0; i < 5; i++) {
-    currentPalette.colorArray.push(createColor());
+    currentPalette[i] = createColor()
   }
 }
 
 function reassignBoxColors() {
-  for (var i = 0; i < 5; i++) {
-    if (!currentPalette.colorArray[i].isLocked) {
-      currentPalette.colorArray[i] = createColor();
+    for (var i = 0; i < 5; i++) {
+    if (!currentPalette[i].isLocked) {
+      currentPalette[i] = createColor();
     }
   }
 }
 
 function renderPalette() {
   for (var i = 0; i < boxes.length; i++) {
-    boxes[i].style.backgroundColor = currentPalette.colorArray[i].hexcode;
-    domHexCodes[i].innerText = currentPalette.colorArray[i].hexcode;
+    boxes[i].style.backgroundColor = currentPalette[i].hexcode;
+    domHexCodes[i].innerText = currentPalette[i].hexcode;
  }
-}
-
-function displayPalette() {
-  reassignBoxColors();
-  renderPalette();
 }
 
 function displayFirstPalette() {
@@ -82,25 +64,26 @@ function displayFirstPalette() {
   renderPalette();
 }
 
+function displayPalette() {
+  reassignBoxColors();
+  renderPalette();
+}
+
 function toggleIcon(event) {
   var targetID = parseInt(event.target.closest(".column").id);
 
-  if (event.target.classList.contains("lock-icon") && currentPalette.colorArray[targetID].isLocked) {
+  if (event.target.classList.contains("lock-icon") && currentPalette[targetID].isLocked) {
       event.target.src = "assets/locked.png"
-      //console.log(currentPalette.colorArray[targetID].isLocked)
-  } else if (event.target.classList.contains("lock-icon") && !currentPalette.colorArray[targetID].isLocked) {
+  } else if (event.target.classList.contains("lock-icon") && !currentPalette[targetID].isLocked) {
       event.target.src = "assets/unlocked.png"
-      //console.log(currentPalette.colorArray[targetID].isLocked)
   } 
 } 
 
 function changeIsLocked(event) {
-  
-  if(event.target.classList.contains("lock-icon")) {
+  if (event.target.classList.contains("lock-icon")) {
     var targetID = parseInt(event.target.closest(".column").id);
-    currentPalette.colorArray[targetID].isLocked = !currentPalette.colorArray[targetID].isLocked;
+    currentPalette[targetID].isLocked = !currentPalette[targetID].isLocked;
   }
-  
 }
   
 function showDomElement(element) {

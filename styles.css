@@ -31,17 +31,17 @@ h1 {
     padding-right: 2px;
 }
 
-.color-boxes {
-    display: flex;
-    justify-content: space-evenly;
-    width: 80%;
-}
-
 .color-name {
     display: flex;
     justify-content: center;
     font-size: medium;
 }
+
+.color-boxes {
+    display: flex;
+    justify-content: space-evenly;
+    width: 32%;
+} 
 
 .box-one {
     background-color: #EA9999;
@@ -76,7 +76,7 @@ h1 {
     display: flex;
     width: 41%;
     justify-content: space-evenly;
-}
+} 
 
 
 .column {
