@@ -6,8 +6,9 @@ var boxes = document.querySelectorAll(".common");
 var domHexCodes = document.querySelectorAll(".hexcode");
 var button = document.querySelector(".new-palette-btn");
 var paletteSection = document.querySelector(".color-boxes");
+var current = document.querySelector('.current-palette-section')
 
-
+console.log(current)
 //event listener
 button.addEventListener("click", displayPalette)
 window.addEventListener("load", displayFirstPalette)
