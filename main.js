@@ -2,21 +2,23 @@
 var hexData = 'ABCDEF0123456789';
 hexData = hexData.split('');
 var currentPalette = [];
-var boxes = document.querySelectorAll(".common");
+var savedPalettes = [];
+var domColorBoxes = document.querySelectorAll(".common");
 var domHexCodes = document.querySelectorAll(".hexcode");
-var button = document.querySelector(".new-palette-btn");
-var paletteSection = document.querySelector(".color-boxes");
-var current = document.querySelector('.current-palette-section')
+var domNewPaletteButton = document.querySelector(".new-palette-btn");
+var domPaletteSection = document.querySelector(".color-boxes");
+var domSavePaletteButton = document.querySelector(".save-palette-btn");
+var domSavedArea = document.querySelector(".saved-area");
 
-console.log(current)
+
 //event listener
-button.addEventListener("click", displayPalette)
-window.addEventListener("load", displayFirstPalette)
-paletteSection.addEventListener("click", function(event) {
+domNewPaletteButton.addEventListener("click", displayPalette);
+window.addEventListener("load", displayPalette);
+domPaletteSection.addEventListener("click", function(event) {
   changeIsLocked(event);
-  toggleIcon(event)
+  toggleIcon(event);
 })
-
+domSavePaletteButton.addEventListener("click", savePalette);
 
 //FUNCTIONS
 function getRandomIndex(array) {
@@ -39,30 +41,19 @@ function createColor() {
   return color;
 }
 
-function loadBoxColors() {
-  for (var i = 0; i < 5; i++) {
-    currentPalette[i] = createColor()
-  }
-}
-
 function reassignBoxColors() {
     for (var i = 0; i < 5; i++) {
-    if (!currentPalette[i].isLocked) {
+    if (!currentPalette[i]?.isLocked) {
       currentPalette[i] = createColor();
     }
   }
 }
 
 function renderPalette() {
-  for (var i = 0; i < boxes.length; i++) {
-    boxes[i].style.backgroundColor = currentPalette[i].hexcode;
+  for (var i = 0; i < domColorBoxes.length; i++) {
+    domColorBoxes[i].style.backgroundColor = currentPalette[i].hexcode;
     domHexCodes[i].innerText = currentPalette[i].hexcode;
  }
-}
-
-function displayFirstPalette() {
-  loadBoxColors();
-  renderPalette();
 }
 
 function displayPalette() {
@@ -95,6 +86,50 @@ function hideDomElement(element) {
   element.classList.add("hidden");
 }
 
+function savePalette() {
+  savePaletteToArray();
+  renderSavedPalettes();
+}
+
+function checkForSavedDuplicates(inputPalette) {
+  for (var i = 0; i < savedPalettes.length; i++) {
+    if ((JSON.stringify(savedPalettes[i]) === JSON.stringify(inputPalette))) {
+      return true;
+    }
+  }
+      return false;
+}
+
+function savePaletteToArray() {
+  if (!checkForSavedDuplicates(currentPalette)) {
+        savedPalettes.push([...currentPalette]);
+  }
+}  
 
 
+function createSinglePaletteHtml(singleSavedPalette) {
+  var htmlCode = "";
+  htmlCode = `<div class="small-box-container">`;
+  for (var i = 0; i < singleSavedPalette.length; i++) {
+    htmlCode += 
+    `
+    <div style="background:${singleSavedPalette[i].hexcode}"class="small-box"></div>
+    `
+  }
+  htmlCode += "</div>"
+  return htmlCode;
+}
 
+function createAllPalettesHtml() {
+  var htmlCode = "";
+  for (var i = 0; i < savedPalettes.length; i++) {
+    htmlCode += createSinglePaletteHtml(savedPalettes[i])
+  }
+  return htmlCode;
+}
+
+function renderSavedPalettes() {
+  domSavedArea.innerHTML = createAllPalettesHtml(); 
+}
+
+  
