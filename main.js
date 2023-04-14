@@ -102,9 +102,21 @@ function savePalette() {
   renderSavedPalettes();
 }
 
-function savePaletteToArray() {
-  savedPalettes.push([...currentPalette]);
+function checkForSavedDuplicates(inputPalette) {
+  for (var i = 0; i < savedPalettes.length; i++) {
+    if ((JSON.stringify(savedPalettes[i]) === JSON.stringify(inputPalette))) {
+      return true;
+    }
+  }
+      return false;
 }
+
+function savePaletteToArray() {
+  if (!checkForSavedDuplicates(currentPalette)) {
+        savedPalettes.push([...currentPalette]);
+  }
+}  
+
 
 function createSinglePaletteHtml(singleSavedPalette) {
   var htmlCode = "";
@@ -116,7 +128,7 @@ function createSinglePaletteHtml(singleSavedPalette) {
     `
   }
   htmlCode += "</div>"
-  return htmlCode
+  return htmlCode;
 }
 
 function createAllPalettesHtml() {
@@ -124,7 +136,7 @@ function createAllPalettesHtml() {
   for (var i = 0; i < savedPalettes.length; i++) {
     htmlCode += createSinglePaletteHtml(savedPalettes[i])
   }
-  return htmlCode 
+  return htmlCode;
 }
 
 function renderSavedPalettes() {
