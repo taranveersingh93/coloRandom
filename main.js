@@ -13,7 +13,7 @@ var domSavedArea = document.querySelector(".saved-area");
 
 //event listener
 domNewPaletteButton.addEventListener("click", displayPalette);
-window.addEventListener("load", displayFirstPalette);
+window.addEventListener("load", displayPalette);
 domPaletteSection.addEventListener("click", function(event) {
   changeIsLocked(event);
   toggleIcon(event);
@@ -41,15 +41,9 @@ function createColor() {
   return color;
 }
 
-function loadBoxColors() {
-  for (var i = 0; i < 5; i++) {
-    currentPalette[i] = createColor()
-  }
-}
-
 function reassignBoxColors() {
     for (var i = 0; i < 5; i++) {
-    if (!currentPalette[i].isLocked) {
+    if (!currentPalette[i]?.isLocked) {
       currentPalette[i] = createColor();
     }
   }
@@ -60,11 +54,6 @@ function renderPalette() {
     domColorBoxes[i].style.backgroundColor = currentPalette[i].hexcode;
     domHexCodes[i].innerText = currentPalette[i].hexcode;
  }
-}
-
-function displayFirstPalette() {
-  loadBoxColors();
-  renderPalette();
 }
 
 function displayPalette() {
