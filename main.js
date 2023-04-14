@@ -7,15 +7,16 @@ var domColorBoxes = document.querySelectorAll(".common");
 var domHexCodes = document.querySelectorAll(".hexcode");
 var domNewPaletteButton = document.querySelector(".new-palette-btn");
 var domPaletteSection = document.querySelector(".color-boxes");
-var domSavePaletteButton = document.querySelector(".save-palette-btn")
+var domSavePaletteButton = document.querySelector(".save-palette-btn");
+var domSavedArea = document.querySelector(".saved-area");
 
 
 //event listener
-domNewPaletteButton.addEventListener("click", displayPalette)
-window.addEventListener("load", displayFirstPalette)
+domNewPaletteButton.addEventListener("click", displayPalette);
+window.addEventListener("load", displayFirstPalette);
 domPaletteSection.addEventListener("click", function(event) {
   changeIsLocked(event);
-  toggleIcon(event)
+  toggleIcon(event);
 })
 domSavePaletteButton.addEventListener("click", savePalette);
 
@@ -97,27 +98,37 @@ function hideDomElement(element) {
 }
 
 function savePalette() {
-  savedPalettes.push(currentPalette)
-  renderSavedPalettes()
+  savePaletteToArray();
+  renderSavedPalettes();
+}
+
+function savePaletteToArray() {
+  savedPalettes.push([...currentPalette]);
+}
+
+function createSinglePaletteHtml(singleSavedPalette) {
+  var htmlCode = "";
+  htmlCode = `<div class="small-box-container">`;
+  for (var i = 0; i < singleSavedPalette.length; i++) {
+    htmlCode += 
+    `
+    <div style="background:${singleSavedPalette[i].hexcode}"class="small-box"></div>
+    `
+  }
+  htmlCode += "</div>"
+  return htmlCode
+}
+
+function createAllPalettesHtml() {
+  var htmlCode = "";
+  for (var i = 0; i < savedPalettes.length; i++) {
+    htmlCode += createSinglePaletteHtml(savedPalettes[i])
+  }
+  return htmlCode 
 }
 
 function renderSavedPalettes() {
-  savedPalettes.innerHTML = createHtml()
+  domSavedArea.innerHTML = createAllPalettesHtml(); 
 }
 
-function createHtml() {
-  var htmlCode= `<div class="small-box-container">`;
-  for (var i = 0; i < savedPalettes.length; i++) {
-    for (var j = 0; j < savedPalettes.length; j++) {
-      console.log(savedPalettes[i][j].hexcode);
-      
-    }
-    htmlCode += 
-    `
-    <div class="small-box"></div>
-    `
-  }
-    return htmlCode
-}
-
-
+  
