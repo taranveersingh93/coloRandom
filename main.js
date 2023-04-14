@@ -2,10 +2,12 @@
 var hexData = 'ABCDEF0123456789';
 hexData = hexData.split('');
 var currentPalette = [];
+var savedPalettes = [];
 var domColorBoxes = document.querySelectorAll(".common");
 var domHexCodes = document.querySelectorAll(".hexcode");
 var domNewPaletteButton = document.querySelector(".new-palette-btn");
 var domPaletteSection = document.querySelector(".color-boxes");
+var domSavePaletteButton = document.querySelector(".save-palette-btn")
 
 
 //event listener
@@ -15,6 +17,7 @@ domPaletteSection.addEventListener("click", function(event) {
   changeIsLocked(event);
   toggleIcon(event)
 })
+domSavePaletteButton.addEventListener("click", savePalette);
 
 //FUNCTIONS
 function getRandomIndex(array) {
@@ -93,6 +96,28 @@ function hideDomElement(element) {
   element.classList.add("hidden");
 }
 
+function savePalette() {
+  savedPalettes.push(currentPalette)
+  renderSavedPalettes()
+}
 
+function renderSavedPalettes() {
+  savedPalettes.innerHTML = createHtml()
+}
+
+function createHtml() {
+  var htmlCode= `<div class="small-box-container">`;
+  for (var i = 0; i < savedPalettes.length; i++) {
+    for (var j = 0; j < savedPalettes.length; j++) {
+      console.log(savedPalettes[i][j].hexcode);
+      
+    }
+    htmlCode += 
+    `
+    <div class="small-box"></div>
+    `
+  }
+    return htmlCode
+}
 
 
