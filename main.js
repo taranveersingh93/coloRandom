@@ -114,9 +114,10 @@ function createSinglePaletteHtml(singleSavedPalette) {
     htmlCode += 
     `
     <div style="background:${singleSavedPalette[i].hexcode}"class="small-box"></div>
+    
     `
   }
-  htmlCode += "</div>"
+  htmlCode += `<img class="lock-icon" src="assets/delete.png"></div>`
   return htmlCode;
 }
 
