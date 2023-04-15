@@ -46,12 +46,20 @@ function createColor() {
   return color;
 }
 
-function reassignBoxColors() {
+function loadBoxColors() {
+  var temporaryPalette = [];
     for (var i = 0; i < 5; i++) {
     if (!currentPalette[i]?.isLocked) {
-      currentPalette[i] = createColor();
+      temporaryPalette[i] = createColor();
+    } else {
+      temporaryPalette[i] = currentPalette[i];
     }
   }
+  return temporaryPalette;
+}
+
+function reassignBoxColors() {
+  currentPalette = loadBoxColors();
 }
 
 function renderPalette() {
