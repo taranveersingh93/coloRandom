@@ -22,7 +22,7 @@ domPaletteSection.addEventListener("click", function(event) {
   toggleLockIcon(event);
 })
 domSavePaletteButton.addEventListener("click", savePalette);
-domSavedArea.addEventListener('click', deleteSavedPalette);
+domSavedArea.addEventListener('click', removeThisPalette);
 
 
 //FUNCTIONS
@@ -111,10 +111,10 @@ function checkForSavedDuplicates(inputPalette) {
       return true;
     }
   }
-      return false;
+  return false;
 }
 
-function createID(inputPalette){
+function createPaletteID(inputPalette){
   var createPalette = {
     description: inputPalette,
     id: Date.now()
@@ -124,7 +124,7 @@ function createID(inputPalette){
 
 function savePaletteToArray() {
   if (!checkForSavedDuplicates(currentPalette)) {
-    savedPalettes.push(createID(currentPalette));
+    savedPalettes.push(createPaletteID(currentPalette));
    } 
  }  
 
@@ -162,6 +162,11 @@ function renderSavedPalettes() {
   domSavedArea.innerHTML = createAllPalettesHtml(); 
 }
 
+function removeThisPalette(event) {
+  deleteSavedPalette(event);
+  renderSavedPalettes();
+}
+
 function deleteSavedPalette(event) {
   if(event.target.classList.contains('delete-icon')){
     var individualPaletteId = event.target.closest('.small-box-container').id
@@ -170,7 +175,6 @@ function deleteSavedPalette(event) {
         savedPalettes.splice(i,1);
       } 
    }
-  renderSavedPalettes()
   }
 }
 
