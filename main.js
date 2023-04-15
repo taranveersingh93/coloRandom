@@ -90,19 +90,10 @@ function toggleLockProperty(event) {
     currentPalette[targetID].isLocked = !currentPalette[targetID].isLocked;
   }
 }
-  
-function showDomElement(element) {
-  element.classList.remove("hidden");
-}
 
-function hideDomElement(element) {
-  element.classList.add("hidden");
-}
-
-function savePalette() {
-  updateBanner();
-  savePaletteToArray();
-  renderSavedPalettes();
+function updateBanner() {
+  showDomElement(domSavedPaletteHeading);
+  hideDomElement(domNoSavedPaletteHeading);
 }
 
 function checkForSavedDuplicates(inputPalette) {
@@ -125,26 +116,26 @@ function createPaletteID(inputPalette){
 function savePaletteToArray() {
   if (!checkForSavedDuplicates(currentPalette)) {
     savedPalettes.push(createPaletteID(currentPalette));
-   } 
- }  
+  } 
+}  
 
 function createSinglePaletteHtml(singleSavedPalette) {
   var htmlCode = "";
   htmlCode = 
   `
   <div class="small-box-container" id=${singleSavedPalette.id}>
-    <div class="single-saved-palette">
+  <div class="single-saved-palette">
   `;
   for (var i = 0; i < singleSavedPalette.description.length; i++) {
     htmlCode += 
     `
-      <div style="background:${singleSavedPalette.description[i].hexcode}"class="single-small-box"></div>
+    <div style="background:${singleSavedPalette.description[i].hexcode}"class="single-small-box"></div>
     `
   }
   htmlCode += 
   `
-    </div>
-    <img class="delete-icon" src="assets/delete.png">
+  </div>
+  <img class="delete-icon" src="assets/delete.png">
   </div>
   `
   return htmlCode;
@@ -162,23 +153,32 @@ function renderSavedPalettes() {
   domSavedArea.innerHTML = createAllPalettesHtml(); 
 }
 
-function removeThisPalette(event) {
-  deleteSavedPalette(event);
+function savePalette() {
+  updateBanner();
+  savePaletteToArray();
   renderSavedPalettes();
 }
 
-function deleteSavedPalette(event) {
+function deleteFromSavedPalettes(event) {
   if(event.target.classList.contains('delete-icon')){
     var individualPaletteId = event.target.closest('.small-box-container').id
     for (var i = 0; i < savedPalettes.length; i++) {  
       if(savedPalettes[i].id === Number(individualPaletteId)) {
         savedPalettes.splice(i,1);
       } 
-   }
+    }
   }
 }
 
-function updateBanner() {
-  showDomElement(domSavedPaletteHeading);
-  hideDomElement(domNoSavedPaletteHeading);
+function removeThisPalette(event) {
+  deleteFromSavedPalettes(event);
+  renderSavedPalettes();
+}
+
+function showDomElement(element) {
+  element.classList.remove("hidden");
+}
+
+function hideDomElement(element) {
+  element.classList.add("hidden");
 }
