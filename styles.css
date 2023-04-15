@@ -48,26 +48,6 @@ body {
     width: 65%;
 } 
 
-.box-one {
-    background-color: #EA9999;
-}
-
-.box-two {
-    background-color: #FACB9C;
-}
-
-.box-three {
-    background-color: #FFE59A;
-}
-
-.box-four {
-    background-color: #B6D788;
-}
-
-.box-five {
-    background-color: #A4C4CA;
-}
-
 .common {
     width: 150px;
     height: 150px;
@@ -100,6 +80,19 @@ body {
     border-top-right-radius: 40px;
     font-size: 25px;
     cursor: pointer;
+}
+
+.new-palette-btn:hover, .save-palette-btn:hover {
+    background-color:white;
+    color:black;
+    transition: 0.7s;
+}
+
+.new-palette-btn:active, .save-palette-btn:active {
+    background-color:white;
+    color:black;
+    font-weight: bold;
+    transition-duration: 0.3s;
 }
 
 .hidden {
