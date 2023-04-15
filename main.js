@@ -18,7 +18,7 @@ var domNoSavedPaletteHeading = document.querySelector('.no-saved-palette-heading
 domNewPaletteButton.addEventListener("click", displayPalette);
 window.addEventListener("load", displayPalette);
 domPaletteSection.addEventListener("click", function(event) {
-  changeIsLocked(event);
+  toggleLockProperty(event);
   toggleLockIcon(event);
 })
 domSavePaletteButton.addEventListener("click", savePalette);
@@ -84,7 +84,7 @@ function toggleLockIcon(event) {
   } 
 } 
 
-function changeIsLocked(event) {
+function toggleLockProperty(event) {
   if (event.target.classList.contains("lock-icon")) {
     var targetID = parseInt(event.target.closest(".color-card").id);
     currentPalette[targetID].isLocked = !currentPalette[targetID].isLocked;
