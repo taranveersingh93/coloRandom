@@ -3,16 +3,18 @@ var hexData = 'ABCDEF0123456789';
 hexData = hexData.split('');
 var currentPalette = [];
 var savedPalettes = [];
+
+// DOM elements 
 var domColorBoxes = document.querySelectorAll(".color-box");
 var domHexCodes = document.querySelectorAll(".hexcode");
 var domNewPaletteButton = document.querySelector(".new-palette-btn");
 var domPaletteSection = document.querySelector(".color-boxes");
 var domSavePaletteButton = document.querySelector(".save-palette-btn");
 var domSavedArea = document.querySelector(".saved-area");
-var savedPaletteHeading = document.querySelector(".saved-palette-heading");
-var noSavedPaletteHeading = document.querySelector('.no-saved-palette-heading');
+var domSavedPaletteHeading = document.querySelector(".saved-palette-heading");
+var domNoSavedPaletteHeading = document.querySelector('.no-saved-palette-heading');
 
-//event listener
+//Event listeners
 domNewPaletteButton.addEventListener("click", displayPalette);
 window.addEventListener("load", displayPalette);
 domPaletteSection.addEventListener("click", function(event) {
@@ -31,7 +33,7 @@ function getRandomIndex(array) {
 function generateHexCode() {
   var hexcode = '#'
   for(var i = 0; i < 6; i++) {
-    hexcode += hexData[getRandomIndex(hexData)]
+    hexcode += hexData[getRandomIndex(hexData)];
   }
   return hexcode;
 }
@@ -68,9 +70,9 @@ function toggleIcon(event) {
   var targetID = parseInt(event.target.closest(".color-card").id);
 
   if (event.target.classList.contains("lock-icon") && currentPalette[targetID].isLocked) {
-      event.target.src = "assets/locked.png"
+      event.target.src = "assets/locked.png";
   } else if (event.target.classList.contains("lock-icon") && !currentPalette[targetID].isLocked) {
-      event.target.src = "assets/unlocked.png"
+      event.target.src = "assets/unlocked.png";
   } 
 } 
 
@@ -108,8 +110,8 @@ function createID(inputPalette){
   var createPalette = {
     description: inputPalette,
     id: Date.now()
-  }
-  return createPalette
+  };
+  return createPalette;
 }
 
 function savePaletteToArray() {
@@ -143,7 +145,7 @@ function createSinglePaletteHtml(singleSavedPalette) {
 function createAllPalettesHtml() {
   var htmlCode = "";
   for (var i = 0; i < savedPalettes.length; i++) {
-    htmlCode += createSinglePaletteHtml(savedPalettes[i])
+    htmlCode += createSinglePaletteHtml(savedPalettes[i]);
   }
   return htmlCode;
 }
@@ -157,7 +159,7 @@ function deleteSavedPalette(event) {
     var individualPaletteId = event.target.closest('.small-box-container').id
     for (var i = 0; i < savedPalettes.length; i++) {  
       if(savedPalettes[i].id === Number(individualPaletteId)) {
-        savedPalettes.splice(i,1)
+        savedPalettes.splice(i,1);
       } 
    }
   renderSavedPalettes()
@@ -165,6 +167,6 @@ function deleteSavedPalette(event) {
 }
 
 function updateBanner() {
-  showDomElement(savedPaletteHeading)
-  hideDomElement(noSavedPaletteHeading)
+  showDomElement(domSavedPaletteHeading);
+  hideDomElement(domNoSavedPaletteHeading);
 }
