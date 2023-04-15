@@ -9,6 +9,15 @@ body {
     margin: 0;
 }
 
+/* Random Palette section */
+
+.colorandom-title {
+    font-size: 90px;
+    margin-top: 160px;
+    margin-bottom: 50px;
+    font-weight: 550;
+}
+
 .current-palette-section {
     display: flex;
     flex-direction: column;
@@ -27,50 +36,19 @@ body {
     width: 22%;
 }
 
-.delete-icon {
-    width: 8%;
-    height: 60%;
-    cursor: pointer;
-}
-
-.delete-icon:hover {
-    width: 9%;
-    height: 63%;
-}
-
-
-.color-name {
-    display: flex;
-    justify-content: center;
-    font-size: medium;
-}
-
 .color-boxes {
     display: flex;
     justify-content: space-evenly;
     width: 65%;
 } 
 
-.common {
-    width: 150px;
-    height: 150px;
-    border: 3px solid black;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-}
+/* Buttons */
 
-.box {
+.button-container {
     display: flex;
-    width: 41%;
-    justify-content: space-evenly;
-} 
-
-
-.column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-around;
+    width: 670px;
+    padding-top: 50px;
 }
 
 .new-palette-btn, .save-palette-btn {
@@ -98,18 +76,31 @@ body {
     transition-duration: 0.3s;
 }
 
-.hidden {
-    display: none;
-}
+/* Individual color card */
 
-.button-container {
+.color-card {
     display: flex;
-    justify-content: space-around;
-    width: 670px;
-    padding-top: 50px;
+    flex-direction: column;
+    align-items: center;
 }
 
-.saved-palettes {
+.color-box {
+    width: 150px;
+    height: 150px;
+    border: 3px solid black;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.hexcode {
+    font-size: 21px;
+    margin-top: 20px;
+}
+
+/* Saved section */
+
+.saved-palettes-section {
     display: flex;
     flex-direction: column;
     border-left: 5px solid black;
@@ -120,12 +111,6 @@ body {
     padding-bottom: 0%;
 }
 
-.saved-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 95%;
-}
 
 .no-saved-palette-heading {
     font-size: 35px;
@@ -133,10 +118,18 @@ body {
     font-weight: 800;
 }   
 
+
 .saved-palette-heading {
     font-size: 35px;
     margin-top: 40px;
     font-weight: 800;
+}
+
+.saved-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
 }
 
 .small-box-container {
@@ -156,15 +149,23 @@ body {
     transition: transform 1s 2s;
 }
 
-.small-box {
+.single-small-box {
     width: 50px;
     height: 50px;
     border: 5px solid black;
 }
 
-.colorandom-title {
-    font-size: 90px;
-    margin-top: 160px;
-    margin-bottom: 50px;
-    font-weight: 550;
+.delete-icon {
+    width: 8%;
+    height: 60%;
+    cursor: pointer;
+}
+
+.delete-icon:hover {
+    width: 9%;
+    height: 63%;
+}
+
+.hidden {
+    display: none;
 }

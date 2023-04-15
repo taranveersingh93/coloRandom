@@ -3,7 +3,7 @@ var hexData = 'ABCDEF0123456789';
 hexData = hexData.split('');
 var currentPalette = [];
 var savedPalettes = [];
-var domColorBoxes = document.querySelectorAll(".common");
+var domColorBoxes = document.querySelectorAll(".color-box");
 var domHexCodes = document.querySelectorAll(".hexcode");
 var domNewPaletteButton = document.querySelector(".new-palette-btn");
 var domPaletteSection = document.querySelector(".color-boxes");
@@ -65,7 +65,7 @@ function displayPalette() {
 }
 
 function toggleIcon(event) {
-  var targetID = parseInt(event.target.closest(".column").id);
+  var targetID = parseInt(event.target.closest(".color-card").id);
 
   if (event.target.classList.contains("lock-icon") && currentPalette[targetID].isLocked) {
       event.target.src = "assets/locked.png"
@@ -76,7 +76,7 @@ function toggleIcon(event) {
 
 function changeIsLocked(event) {
   if (event.target.classList.contains("lock-icon")) {
-    var targetID = parseInt(event.target.closest(".column").id);
+    var targetID = parseInt(event.target.closest(".color-card").id);
     currentPalette[targetID].isLocked = !currentPalette[targetID].isLocked;
   }
 }
@@ -128,7 +128,7 @@ function createSinglePaletteHtml(singleSavedPalette) {
   for (var i = 0; i < singleSavedPalette.description.length; i++) {
     htmlCode += 
     `
-      <div style="background:${singleSavedPalette.description[i].hexcode}"class="small-box"></div>
+      <div style="background:${singleSavedPalette.description[i].hexcode}"class="single-small-box"></div>
     `
   }
   htmlCode += 
