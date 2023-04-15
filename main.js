@@ -97,7 +97,7 @@ function savePalette() {
 
 function checkForSavedDuplicates(inputPalette) {
   for (var i = 0; i < savedPalettes.length; i++) {
-    if ((JSON.stringify(savedPalettes[i]) === JSON.stringify(inputPalette))) {
+    if ((JSON.stringify(savedPalettes[i].description) === JSON.stringify(inputPalette))) {
       return true;
     }
   }
@@ -118,8 +118,7 @@ function savePaletteToArray() {
    } 
  }  
 
-
- function createSinglePaletteHtml(singleSavedPalette) {
+function createSinglePaletteHtml(singleSavedPalette) {
   var htmlCode = "";
   htmlCode = `<div class="small-box-container" id=${singleSavedPalette.id}>`;
   for (var i = 0; i < singleSavedPalette.description.length; i++) {
