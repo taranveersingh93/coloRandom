@@ -120,14 +120,23 @@ function savePaletteToArray() {
 
 function createSinglePaletteHtml(singleSavedPalette) {
   var htmlCode = "";
-  htmlCode = `<div class="small-box-container" id=${singleSavedPalette.id}>`;
+  htmlCode = 
+  `
+  <div class="small-box-container" id=${singleSavedPalette.id}>
+    <div class="single-saved-palette">
+  `;
   for (var i = 0; i < singleSavedPalette.description.length; i++) {
     htmlCode += 
     `
-    <div style="background:${singleSavedPalette.description[i].hexcode}"class="small-box"></div>
+      <div style="background:${singleSavedPalette.description[i].hexcode}"class="small-box"></div>
     `
   }
-  htmlCode += `<img class="delete-icon" src="assets/delete.png"></div>`
+  htmlCode += 
+  `
+    </div>
+    <img class="delete-icon" src="assets/delete.png">
+  </div>
+  `
   return htmlCode;
 }
 
