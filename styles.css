@@ -16,18 +16,15 @@ body {
     width: 70%;
 }
 
-.lock-img {
-    width: 20%;
-    height:40%;
-    padding-bottom: 5px;
-    padding-right: 2px;
-}
-
 .lock-icon {
     width: 20%;
-    padding-bottom: 5px;
-    padding-right: 2px;
+    margin-bottom: 5px;
+    margin-right: 2px;
     cursor: pointer;
+}
+
+.lock-icon:hover {
+    width: 22%;
 }
 
 .delete-icon {
@@ -35,6 +32,12 @@ body {
     height: 60%;
     cursor: pointer;
 }
+
+.delete-icon:hover {
+    width: 9%;
+    height: 63%;
+}
+
 
 .color-name {
     display: flex;
@@ -142,6 +145,7 @@ body {
     align-items: center;
     width: 80%;
     margin-bottom: 20px;
+    transition-delay: 1s;
 }
 
 .single-saved-palette {
@@ -149,6 +153,7 @@ body {
     justify-content: space-evenly;
     align-items: center;
     width: 78%;
+    transition: transform 1s 2s;
 }
 
 .small-box {
