@@ -9,7 +9,8 @@ var domNewPaletteButton = document.querySelector(".new-palette-btn");
 var domPaletteSection = document.querySelector(".color-boxes");
 var domSavePaletteButton = document.querySelector(".save-palette-btn");
 var domSavedArea = document.querySelector(".saved-area");
-
+var savedPaletteHeading = document.querySelector(".saved-palette-heading");
+var noSavedPaletteHeading = document.querySelector('.no-saved-palette-heading');
 
 //event listener
 domNewPaletteButton.addEventListener("click", displayPalette);
@@ -19,6 +20,8 @@ domPaletteSection.addEventListener("click", function(event) {
   toggleIcon(event);
 })
 domSavePaletteButton.addEventListener("click", savePalette);
+domSavedArea.addEventListener('click', deleteSavedPalette);
+
 
 //FUNCTIONS
 function getRandomIndex(array) {
@@ -87,6 +90,7 @@ function hideDomElement(element) {
 }
 
 function savePalette() {
+  updateBanner();
   savePaletteToArray();
   renderSavedPalettes();
 }
@@ -100,24 +104,31 @@ function checkForSavedDuplicates(inputPalette) {
       return false;
 }
 
+function createID(inputPalette){
+  var createPalette = {
+    description: inputPalette,
+    id: Date.now()
+  }
+  return createPalette
+}
+
 function savePaletteToArray() {
   if (!checkForSavedDuplicates(currentPalette)) {
-        savedPalettes.push([...currentPalette]);
-  }
-}  
+     savedPalettes.push(createID([...currentPalette]));
+   } 
+ }  
 
 
-function createSinglePaletteHtml(singleSavedPalette) {
+ function createSinglePaletteHtml(singleSavedPalette) {
   var htmlCode = "";
-  htmlCode = `<div class="small-box-container">`;
-  for (var i = 0; i < singleSavedPalette.length; i++) {
+  htmlCode = `<div class="small-box-container" id=${singleSavedPalette.id}>`;
+  for (var i = 0; i < singleSavedPalette.description.length; i++) {
     htmlCode += 
     `
-    <div style="background:${singleSavedPalette[i].hexcode}"class="small-box"></div>
-    
+    <div style="background:${singleSavedPalette.description[i].hexcode}"class="small-box"></div>
     `
   }
-  htmlCode += `<img class="lock-icon" src="assets/delete.png"></div>`
+  htmlCode += `<img class="delete-icon" src="assets/delete.png"></div>`
   return htmlCode;
 }
 
@@ -133,4 +144,19 @@ function renderSavedPalettes() {
   domSavedArea.innerHTML = createAllPalettesHtml(); 
 }
 
-  
+function deleteSavedPalette(event) {
+  if(event.target.classList.contains('delete-icon')){
+    var individualPaletteId = event.target.closest('.small-box-container').id
+    for (var i = 0; i < savedPalettes.length; i++) {  
+      if(savedPalettes[i].id === Number(individualPaletteId)) {
+        savedPalettes.splice(i,1)
+      } 
+   }
+  renderSavedPalettes()
+  }
+}
+
+function updateBanner() {
+  showDomElement(savedPaletteHeading)
+  hideDomElement(noSavedPaletteHeading)
+}
