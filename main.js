@@ -23,7 +23,8 @@ domPaletteSection.addEventListener("click", function(event) {
 });
 domSavePaletteButton.addEventListener("click", savePalette);
 domSavedArea.addEventListener('click', function(event) {
-   removeThisPalette(event);
+  removeThisPalette(event);
+  reloadSavedPalette(event);
 })
 
 //FUNCTIONS
@@ -165,7 +166,7 @@ function deleteFromSavedPalettes(event) {
   if(event.target.classList.contains('delete-icon')){
     var individualPaletteId = event.target.closest('.small-box-container').id
     for (var i = 0; i < savedPalettes.length; i++) {  
-      if(savedPalettes[i].id === Number(individualPaletteId)) {
+      if (savedPalettes[i].id === Number(individualPaletteId)) {
         savedPalettes.splice(i,1);
       } 
     }
@@ -177,10 +178,25 @@ function removeThisPalette(event) {
   renderSavedPalettes();
 }
 
-function showDomElement(element) {
-  element.classList.remove("hidden");
-}
 
+
+function assignToCurrentPalette(event) {
+  if (event.target.classList.contains('single-small-box'))  {
+    var individualPaletteId = event.target.closest('.small-box-container').id
+      for (var i = 0; i < savedPalettes.length; i++) {
+        if (savedPalettes[i].id === Number(individualPaletteId)) {
+          currentPalette = savedPalettes[i].description
+        }
+      }
+    }
+  }
+  
+function showDomElement(element) {
+      element.classList.remove("hidden");
+    }
+    
 function hideDomElement(element) {
-  element.classList.add("hidden");
+      element.classList.add("hidden");
 }
+  
+
