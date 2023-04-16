@@ -15,12 +15,12 @@ var domSavedPaletteHeading = document.querySelector(".saved-palette-heading");
 var domNoSavedPaletteHeading = document.querySelector('.no-saved-palette-heading');
 
 //Event listeners
-domNewPaletteButton.addEventListener("click", displayPalette);
-window.addEventListener("load", displayPalette);
+domNewPaletteButton.addEventListener("click", generateNewPalette);
+window.addEventListener("load", generateNewPalette);
 domPaletteSection.addEventListener("click", function(event) {
   toggleLockProperty(event);
   toggleLockIcon(event);
-})
+});
 domSavePaletteButton.addEventListener("click", savePalette);
 domSavedArea.addEventListener('click', removeThisPalette);
 
@@ -69,7 +69,7 @@ function renderPalette() {
  }
 }
 
-function displayPalette() {
+function generateNewPalette() {
   reassignBoxColors();
   renderPalette();
 }
@@ -157,6 +157,7 @@ function savePalette() {
   updateBanner();
   savePaletteToArray();
   renderSavedPalettes();
+  generateNewPalette();
 }
 
 function deleteFromSavedPalettes(event) {
