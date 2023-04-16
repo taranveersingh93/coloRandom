@@ -22,8 +22,10 @@ domPaletteSection.addEventListener("click", function(event) {
   toggleLockIcon(event);
 });
 domSavePaletteButton.addEventListener("click", savePalette);
-domSavedArea.addEventListener('click', removeThisPalette);
-
+domSavedArea.addEventListener('click', function(event) {
+  removeThisPalette(event);
+  reloadSavedPalette(event);
+})
 
 //FUNCTIONS
 function getRandomIndex(array) {
@@ -164,7 +166,7 @@ function deleteFromSavedPalettes(event) {
   if(event.target.classList.contains('delete-icon')){
     var individualPaletteId = event.target.closest('.small-box-container').id
     for (var i = 0; i < savedPalettes.length; i++) {  
-      if(savedPalettes[i].id === Number(individualPaletteId)) {
+      if (savedPalettes[i].id === Number(individualPaletteId)) {
         savedPalettes.splice(i,1);
       } 
     }
@@ -176,10 +178,28 @@ function removeThisPalette(event) {
   renderSavedPalettes();
 }
 
-function showDomElement(element) {
-  element.classList.remove("hidden");
+function reloadSavedPalette(event) {
+  assignToCurrentPalette(event);
+  renderPalette();
 }
 
-function hideDomElement(element) {
-  element.classList.add("hidden");
+function assignToCurrentPalette(event) {
+  if (event.target.classList.contains('single-small-box') || event.target.classList.contains('single-saved-palette'))  {
+    var individualPaletteId = event.target.closest('.small-box-container').id
+      for (var i = 0; i < savedPalettes.length; i++) {
+        if (savedPalettes[i].id === Number(individualPaletteId)) {
+          currentPalette = savedPalettes[i].description
+        }
+      }
+    }
+  }
+  
+function showDomElement(element) {
+      element.classList.remove("hidden");
 }
+    
+function hideDomElement(element) {
+      element.classList.add("hidden");
+}
+  
+
