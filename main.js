@@ -22,8 +22,9 @@ domPaletteSection.addEventListener("click", function(event) {
   toggleLockIcon(event);
 });
 domSavePaletteButton.addEventListener("click", savePalette);
-domSavedArea.addEventListener('click', removeThisPalette);
-
+domSavedArea.addEventListener('click', function(event) {
+   removeThisPalette(event);
+})
 
 //FUNCTIONS
 function getRandomIndex(array) {
