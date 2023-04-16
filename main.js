@@ -178,7 +178,10 @@ function removeThisPalette(event) {
   renderSavedPalettes();
 }
 
-
+function reloadSavedPalette(event) {
+  assignToCurrentPalette(event);
+  renderPalette();
+}
 
 function assignToCurrentPalette(event) {
   if (event.target.classList.contains('single-small-box'))  {
@@ -193,7 +196,7 @@ function assignToCurrentPalette(event) {
   
 function showDomElement(element) {
       element.classList.remove("hidden");
-    }
+}
     
 function hideDomElement(element) {
       element.classList.add("hidden");
