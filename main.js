@@ -34,7 +34,7 @@ function getRandomIndex(array) {
 
 function generateHexCode() {
   var hexcode = '#'
-  for(var i = 0; i < 6; i++) {
+  for (var i = 0; i < 6; i++) {
     hexcode += hexData[getRandomIndex(hexData)];
   }
   return hexcode;
@@ -107,7 +107,7 @@ function checkForSavedDuplicates(inputPalette) {
   return false;
 }
 
-function createPaletteID(inputPalette){
+function createPaletteID(inputPalette) {
   var createPalette = {
     description: inputPalette,
     id: Date.now()
@@ -163,7 +163,7 @@ function savePalette() {
 }
 
 function deleteFromSavedPalettes(event) {
-  if(event.target.classList.contains('delete-icon')){
+  if (event.target.classList.contains('delete-icon')) {
     var individualPaletteId = event.target.closest('.small-box-container').id
     for (var i = 0; i < savedPalettes.length; i++) {  
       if (savedPalettes[i].id === Number(individualPaletteId)) {
