@@ -184,7 +184,7 @@ function reloadSavedPalette(event) {
 }
 
 function assignToCurrentPalette(event) {
-  if (event.target.classList.contains('single-small-box'))  {
+  if (event.target.classList.contains('single-small-box') || event.target.classList.contains('single-saved-palette'))  {
     var individualPaletteId = event.target.closest('.small-box-container').id
       for (var i = 0; i < savedPalettes.length; i++) {
         if (savedPalettes[i].id === Number(individualPaletteId)) {
