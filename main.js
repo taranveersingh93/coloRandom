@@ -33,7 +33,7 @@ function getRandomIndex(array) {
 function generateHexCode() {
   var hexData = 'ABCDEF0123456789';
   hexData = hexData.split('');
-  var hexcode = '#'
+  var hexcode = '#';
   for (var i = 0; i < 6; i++) {
     hexcode += hexData[getRandomIndex(hexData)];
   }
@@ -44,7 +44,7 @@ function createColor() {
   var color = {
     hexcode: generateHexCode(),
     isLocked: false
-  }
+  };
   return color;
 }
 
@@ -152,7 +152,7 @@ function createSinglePaletteHtml(singleSavedPalette) {
     htmlCode += 
     `
     <div style="background:${singleSavedPalette.description[i].hexcode}"class="single-small-box"></div>
-    `
+    `;
   }
   htmlCode += 
   `
