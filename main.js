@@ -119,20 +119,20 @@ function checkForSavedDuplicates(inputPalette, inputArray) {
   return false;
 }
 
-
 function createPaletteID(inputPalette) {
   var createPalette = {
-    description: inputPalette,
+    description:[...inputPalette],
     id: Date.now()
   };
   return createPalette;
 }
 
-function savePaletteToArray() {
-  if (!checkForSavedDuplicates(currentPalette)) {
-    savedPalettes.push(createPaletteID(currentPalette));
-  } 
-}  
+function savePaletteToArray(savedArray, palette) {
+  if(!checkForSavedDuplicates(palette, savedArray)) {
+    savedArray.push(createPaletteID(palette));
+  }
+  return savedArray;
+} 
 
 function createSinglePaletteHtml(singleSavedPalette) {
   var htmlCode = "";
@@ -170,7 +170,7 @@ function renderSavedPalettes() {
 
 function savePalette() {
   updateBanner();
-  savePaletteToArray();
+  savedPalettes = savePaletteToArray(savedPalettes, currentPalette);
   renderSavedPalettes();
   generateNewPalette();
 }
@@ -201,12 +201,12 @@ function assignToCurrentPalette(event) {
     var individualPaletteId = event.target.closest('.small-box-container').id
       for (var i = 0; i < savedPalettes.length; i++) {
         if (savedPalettes[i].id === Number(individualPaletteId)) {
-          currentPalette = savedPalettes[i].description
+          currentPalette = [...savedPalettes[i].description]
         }
       }
     }
   }
-  
+
 function showDomElement(element) {
       element.classList.remove("hidden");
 }
