@@ -215,11 +215,9 @@ function assignToCurrentPalette(event) {
 }
 
 function showDomElement(element) {
-      element.classList.remove("hidden");
+  element.classList.remove("hidden");
 }
     
 function hideDomElement(element) {
-      element.classList.add("hidden");
+  element.classList.add("hidden");
 }
-  
-
