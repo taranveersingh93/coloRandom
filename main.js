@@ -19,8 +19,7 @@ var domLockIcons = document.querySelectorAll(".lock-icon");
 domNewPaletteButton.addEventListener("click", generateNewPalette);
 window.addEventListener("load", generateNewPalette);
 domPaletteSection.addEventListener("click", function(event) {
-  toggleLockProperty(event);
-  toggleLockIcon(event);
+  toggleThisBox(event);
 });
 domSavePaletteButton.addEventListener("click", savePalette);
 domSavedArea.addEventListener('click', function(event) {
@@ -69,7 +68,18 @@ function renderPalette() {
   for (var i = 0; i < domColorBoxes.length; i++) {
     domColorBoxes[i].style.backgroundColor = currentPalette[i].hexcode;
     domHexCodes[i].innerText = currentPalette[i].hexcode;
+
+    if(currentPalette[i].isLocked) {
+      domLockIcons[i].src = "assets/locked.png" 
+    } else {
+      domLockIcons[i].src = "assets/unlocked.png"
+    }
  }
+}
+
+function generateNewPalette() {
+  reassignBoxColors();
+  renderPalette();
 }
 
 function generateNewPalette() {
