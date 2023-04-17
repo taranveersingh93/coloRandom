@@ -77,6 +77,21 @@ function renderPalette() {
  }
 }
 
+function editClonedPalette(event, palette) {
+  var temporaryPalette = [];
+    var targetID = Number(event.target.closest(".color-card").id);
+    for (var i = 0; i < palette.length; i++) {
+      temporaryPalette[i] = createColor();
+      temporaryPalette[i].hexcode = palette[i].hexcode;
+      if (i === targetID) {
+        temporaryPalette[i].isLocked = !palette[i].isLocked;      
+      } else {
+        temporaryPalette[i].isLocked = palette[i].isLocked;
+      }
+    }
+    return temporaryPalette;
+}
+
 function generateNewPalette() {
   reassignBoxColors();
   renderPalette();
