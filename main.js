@@ -77,6 +77,11 @@ function renderPalette() {
  }
 }
 
+function generateNewPalette() {
+  reassignBoxColors();
+  renderPalette();
+}
+
 function editClonedPalette(event, palette) {
   var temporaryPalette = [];
     var targetID = Number(event.target.closest(".color-card").id);
@@ -92,15 +97,14 @@ function editClonedPalette(event, palette) {
     return temporaryPalette;
 }
 
-function generateNewPalette() {
-  reassignBoxColors();
-  renderPalette();
+function toggleLockProperty(event, palette) {
+  if (event.target.classList.contains("lock-icon")) {
+    return editClonedPalette(event, palette);
+   } else {
+    return palette;
+   }
 }
 
-function generateNewPalette() {
-  reassignBoxColors();
-  renderPalette();
-}
 
 function toggleLockIcon(event) {
   var targetID = parseInt(event.target.closest(".color-card").id);
@@ -112,12 +116,6 @@ function toggleLockIcon(event) {
   } 
 } 
 
-function toggleLockProperty(event) {
-  if (event.target.classList.contains("lock-icon")) {
-    var targetID = parseInt(event.target.closest(".color-card").id);
-    currentPalette[targetID].isLocked = !currentPalette[targetID].isLocked;
-  }
-}
 
 function updateBanner() {
   showDomElement(domSavedPaletteHeading);
