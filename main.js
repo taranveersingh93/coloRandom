@@ -1,5 +1,4 @@
 //VARIABLES
-
 var currentPalette = [];
 var savedPalettes = [];
 
@@ -24,7 +23,7 @@ domSavePaletteButton.addEventListener("click", savePalette);
 domSavedArea.addEventListener('click', function(event) {
   removeThisPalette(event);
   reloadSavedPalette(event);
-})
+});
 
 //FUNCTIONS
 function getRandomIndex(array) {
@@ -71,9 +70,9 @@ function renderPalette() {
     domHexCodes[i].innerText = currentPalette[i].hexcode;
 
     if(currentPalette[i].isLocked) {
-      domLockIcons[i].src = "assets/locked.png" 
+      domLockIcons[i].src = "assets/locked.png"; 
     } else {
-      domLockIcons[i].src = "assets/unlocked.png"
+      domLockIcons[i].src = "assets/unlocked.png";
     }
  }
 }
@@ -108,7 +107,7 @@ function toggleLockProperty(event, palette) {
 
 function toggleThisBox(event) {
   currentPalette = toggleLockProperty(event, currentPalette);
-  renderPalette()
+  renderPalette();
 }
 
 function updateBanner() {
@@ -142,11 +141,13 @@ function savePaletteToArray(savedArray, palette) {
 
 function createSinglePaletteHtml(singleSavedPalette) {
   var htmlCode = "";
+  
   htmlCode = 
   `
   <div class="small-box-container" id=${singleSavedPalette.id}>
   <div class="single-saved-palette">
   `;
+
   for (var i = 0; i < singleSavedPalette.description.length; i++) {
     htmlCode += 
     `
@@ -158,7 +159,7 @@ function createSinglePaletteHtml(singleSavedPalette) {
   </div>
   <img class="delete-icon" src="assets/delete.png">
   </div>
-  `
+  `;
   return htmlCode;
 }
 
@@ -183,7 +184,7 @@ function savePalette() {
 
 function deleteFromSavedPalettes(event) {
   if (event.target.classList.contains('delete-icon')) {
-    var individualPaletteId = event.target.closest('.small-box-container').id
+    var individualPaletteId = event.target.closest('.small-box-container').id;
     for (var i = 0; i < savedPalettes.length; i++) {  
       if (savedPalettes[i].id === Number(individualPaletteId)) {
         savedPalettes.splice(i,1);
@@ -204,10 +205,10 @@ function reloadSavedPalette(event) {
 
 function assignToCurrentPalette(event) {
   if (event.target.classList.contains('single-small-box') || event.target.classList.contains('single-saved-palette'))  {
-    var individualPaletteId = event.target.closest('.small-box-container').id
+    var individualPaletteId = event.target.closest('.small-box-container').id;
       for (var i = 0; i < savedPalettes.length; i++) {
         if (savedPalettes[i].id === Number(individualPaletteId)) {
-          currentPalette = [...savedPalettes[i].description]
+          currentPalette = savedPalettes[i].description;
         }
      }
   }
