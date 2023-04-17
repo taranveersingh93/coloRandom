@@ -105,24 +105,20 @@ function toggleLockProperty(event, palette) {
    }
 }
 
-function toggleThisBox(event) {
-  currentPalette = toggleLockProperty(event, currentPalette);
-  renderPalette()
-}
-
 function updateBanner() {
   showDomElement(domSavedPaletteHeading);
   hideDomElement(domNoSavedPaletteHeading);
 }
 
-function checkForSavedDuplicates(inputPalette) {
-  for (var i = 0; i < savedPalettes.length; i++) {
-    if ((JSON.stringify(savedPalettes[i].description) === JSON.stringify(inputPalette))) {
+function checkForSavedDuplicates(inputPalette, inputArray) {
+  for (var i = 0; i < inputArray.length; i++) {
+    if ((JSON.stringify(inputArray[i].description) === JSON.stringify(inputPalette))) {
       return true;
     }
   }
   return false;
 }
+
 
 function createPaletteID(inputPalette) {
   var createPalette = {
