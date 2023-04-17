@@ -105,17 +105,10 @@ function toggleLockProperty(event, palette) {
    }
 }
 
-
-function toggleLockIcon(event) {
-  var targetID = parseInt(event.target.closest(".color-card").id);
-
-  if (event.target.classList.contains("lock-icon") && currentPalette[targetID].isLocked) {
-      event.target.src = "assets/locked.png";
-  } else if (event.target.classList.contains("lock-icon") && !currentPalette[targetID].isLocked) {
-      event.target.src = "assets/unlocked.png";
-  } 
-} 
-
+function toggleThisBox(event) {
+  currentPalette = toggleLockProperty(event, currentPalette);
+  renderPalette()
+}
 
 function updateBanner() {
   showDomElement(domSavedPaletteHeading);
