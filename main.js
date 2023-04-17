@@ -1,6 +1,5 @@
 //VARIABLES
-var hexData = 'ABCDEF0123456789';
-hexData = hexData.split('');
+
 var currentPalette = [];
 var savedPalettes = [];
 
@@ -33,6 +32,8 @@ function getRandomIndex(array) {
 }
 
 function generateHexCode() {
+  var hexData = 'ABCDEF0123456789';
+  hexData = hexData.split('');
   var hexcode = '#'
   for (var i = 0; i < 6; i++) {
     hexcode += hexData[getRandomIndex(hexData)];
