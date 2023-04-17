@@ -105,6 +105,11 @@ function toggleLockProperty(event, palette) {
    }
 }
 
+function toggleThisBox(event) {
+  currentPalette = toggleLockProperty(event, currentPalette);
+  renderPalette()
+}
+
 function updateBanner() {
   showDomElement(domSavedPaletteHeading);
   hideDomElement(domNoSavedPaletteHeading);
@@ -203,9 +208,9 @@ function assignToCurrentPalette(event) {
         if (savedPalettes[i].id === Number(individualPaletteId)) {
           currentPalette = [...savedPalettes[i].description]
         }
-      }
-    }
+     }
   }
+}
 
 function showDomElement(element) {
       element.classList.remove("hidden");
