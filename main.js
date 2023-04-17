@@ -1,6 +1,5 @@
 //VARIABLES
-var hexData = 'ABCDEF0123456789';
-hexData = hexData.split('');
+
 var currentPalette = [];
 var savedPalettes = [];
 
@@ -13,13 +12,13 @@ var domSavePaletteButton = document.querySelector(".save-palette-btn");
 var domSavedArea = document.querySelector(".saved-area");
 var domSavedPaletteHeading = document.querySelector(".saved-palette-heading");
 var domNoSavedPaletteHeading = document.querySelector('.no-saved-palette-heading');
+var domLockIcons = document.querySelectorAll(".lock-icon");
 
 //Event listeners
 domNewPaletteButton.addEventListener("click", generateNewPalette);
 window.addEventListener("load", generateNewPalette);
 domPaletteSection.addEventListener("click", function(event) {
-  toggleLockProperty(event);
-  toggleLockIcon(event);
+  toggleThisBox(event);
 });
 domSavePaletteButton.addEventListener("click", savePalette);
 domSavedArea.addEventListener('click', function(event) {
@@ -33,6 +32,8 @@ function getRandomIndex(array) {
 }
 
 function generateHexCode() {
+  var hexData = 'ABCDEF0123456789';
+  hexData = hexData.split('');
   var hexcode = '#'
   for (var i = 0; i < 6; i++) {
     hexcode += hexData[getRandomIndex(hexData)];
@@ -68,6 +69,12 @@ function renderPalette() {
   for (var i = 0; i < domColorBoxes.length; i++) {
     domColorBoxes[i].style.backgroundColor = currentPalette[i].hexcode;
     domHexCodes[i].innerText = currentPalette[i].hexcode;
+
+    if(currentPalette[i].isLocked) {
+      domLockIcons[i].src = "assets/locked.png" 
+    } else {
+      domLockIcons[i].src = "assets/unlocked.png"
+    }
  }
 }
 
@@ -76,21 +83,32 @@ function generateNewPalette() {
   renderPalette();
 }
 
-function toggleLockIcon(event) {
-  var targetID = parseInt(event.target.closest(".color-card").id);
+function editClonedPalette(event, palette) {
+  var temporaryPalette = [];
+    var targetID = Number(event.target.closest(".color-card").id);
+    for (var i = 0; i < palette.length; i++) {
+      temporaryPalette[i] = createColor();
+      temporaryPalette[i].hexcode = palette[i].hexcode;
+      if (i === targetID) {
+        temporaryPalette[i].isLocked = !palette[i].isLocked;      
+      } else {
+        temporaryPalette[i].isLocked = palette[i].isLocked;
+      }
+    }
+    return temporaryPalette;
+}
 
-  if (event.target.classList.contains("lock-icon") && currentPalette[targetID].isLocked) {
-      event.target.src = "assets/locked.png";
-  } else if (event.target.classList.contains("lock-icon") && !currentPalette[targetID].isLocked) {
-      event.target.src = "assets/unlocked.png";
-  } 
-} 
-
-function toggleLockProperty(event) {
+function toggleLockProperty(event, palette) {
   if (event.target.classList.contains("lock-icon")) {
-    var targetID = parseInt(event.target.closest(".color-card").id);
-    currentPalette[targetID].isLocked = !currentPalette[targetID].isLocked;
-  }
+    return editClonedPalette(event, palette);
+   } else {
+    return palette;
+   }
+}
+
+function toggleThisBox(event) {
+  currentPalette = toggleLockProperty(event, currentPalette);
+  renderPalette()
 }
 
 function updateBanner() {
@@ -98,9 +116,9 @@ function updateBanner() {
   hideDomElement(domNoSavedPaletteHeading);
 }
 
-function checkForSavedDuplicates(inputPalette) {
-  for (var i = 0; i < savedPalettes.length; i++) {
-    if ((JSON.stringify(savedPalettes[i].description) === JSON.stringify(inputPalette))) {
+function checkForSavedDuplicates(inputPalette, inputArray) {
+  for (var i = 0; i < inputArray.length; i++) {
+    if ((JSON.stringify(inputArray[i].description) === JSON.stringify(inputPalette))) {
       return true;
     }
   }
@@ -109,17 +127,18 @@ function checkForSavedDuplicates(inputPalette) {
 
 function createPaletteID(inputPalette) {
   var createPalette = {
-    description: inputPalette,
+    description:[...inputPalette],
     id: Date.now()
   };
   return createPalette;
 }
 
-function savePaletteToArray() {
-  if (!checkForSavedDuplicates(currentPalette)) {
-    savedPalettes.push(createPaletteID(currentPalette));
-  } 
-}  
+function savePaletteToArray(savedArray, palette) {
+  if(!checkForSavedDuplicates(palette, savedArray)) {
+    savedArray.push(createPaletteID(palette));
+  }
+  return savedArray;
+} 
 
 function createSinglePaletteHtml(singleSavedPalette) {
   var htmlCode = "";
@@ -157,7 +176,7 @@ function renderSavedPalettes() {
 
 function savePalette() {
   updateBanner();
-  savePaletteToArray();
+  savedPalettes = savePaletteToArray(savedPalettes, currentPalette);
   renderSavedPalettes();
   generateNewPalette();
 }
@@ -188,12 +207,12 @@ function assignToCurrentPalette(event) {
     var individualPaletteId = event.target.closest('.small-box-container').id
       for (var i = 0; i < savedPalettes.length; i++) {
         if (savedPalettes[i].id === Number(individualPaletteId)) {
-          currentPalette = savedPalettes[i].description
+          currentPalette = [...savedPalettes[i].description]
         }
-      }
-    }
+     }
   }
-  
+}
+
 function showDomElement(element) {
       element.classList.remove("hidden");
 }
