@@ -13,6 +13,7 @@ var domSavePaletteButton = document.querySelector(".save-palette-btn");
 var domSavedArea = document.querySelector(".saved-area");
 var domSavedPaletteHeading = document.querySelector(".saved-palette-heading");
 var domNoSavedPaletteHeading = document.querySelector('.no-saved-palette-heading');
+var domLockIcons = document.querySelectorAll(".lock-icon");
 
 //Event listeners
 domNewPaletteButton.addEventListener("click", generateNewPalette);
