@@ -157,7 +157,7 @@ function createSinglePaletteHtml(singleSavedPalette) {
   htmlCode += 
   `
   </div>
-  <img class="delete-icon" src="assets/delete.png">
+  <img class="delete-icon" alt="Delete Icon" src="assets/delete.png">
   </div>
   `;
   return htmlCode;
