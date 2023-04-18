@@ -71,10 +71,10 @@ function renderPalette() {
 
     if(currentPalette[i].isLocked) {
       domLockIcons[i].src = "assets/locked.png";
-      domLockIcons[i].alt = "Locked Padlock"
+      domLockIcons[i].alt = "Locked Padlock";
     } else {
       domLockIcons[i].src = "assets/unlocked.png";
-      domLockIcons[i].alt = "Unlocked Padlock"
+      domLockIcons[i].alt = "Unlocked Padlock";
     }
  }
 }
