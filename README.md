@@ -11,9 +11,9 @@ The ColoRandom app allows users to create, save, and customize random color pale
 ### Installation Instructions:
 [//]: <> (What steps does a person have to take to get your app cloned down and running?)
 
-1. Follow the link to this [repository](https://github.com/Elise-Jones/coloRandom)
+1. Follow the link to this [repository](https://github.com/taranveersingh93/coloRandom)
 2. Clone down to your desired directory by commanding 
-  `git clone git@github.com:Elise-Jones/coloRandom.git`
+  `git clone git@github.com:taranveersingh93/coloRandom.git`
 3. cd into the repository
 4. View the project in the browser by running `open index.html` in your terminal
 
